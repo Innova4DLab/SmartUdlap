@@ -1,6 +1,6 @@
 {
-  "name": "BusApp",
-  "version": "0.0.0",
+  "name": "SmartUdlap",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./app.js"
