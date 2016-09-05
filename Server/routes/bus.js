@@ -13,29 +13,8 @@ var data = require('../data');
 
 //Respose
 router.get('/get', function(req, res, next) {
-	busModel.aggregate(
-		[
-			 { $sort: { id: 1, timestamp: 1 } },
-		     {
-		       $group:
-		         {
-		           _id: "$id",
-		           latitude: {$first: "$latitude"},
-		           longitude: {$first: "$longitude"},
-		           route: {$first: "$route"},
-		           timestamp: { $last: "$timestamp" },
-		         }
-		     }
-		],
-		function (err, lastUpdate) {
-	  		if (err) return console.error(err);
-	  		console.log(lastUpdate);
-	  		//res.json(lastUpdate);
-	  		busObject = data.getBus();//Get reference of Bus Array
-	  		res.json(busObject);
-	  		//res.send('Last Update->'+lastUpdate.latitude);
-		}
-	);
+	busObject = data.getBus();//Get reference of Bus Array
+	res.json(busObject);
 });
 
 router.get('/save', function(req, res, next) {
@@ -47,7 +26,7 @@ router.get('/save', function(req, res, next) {
 			    latitude: req.query.latitude,
 			    longitude: req.query.longitude,
 			    route: req.query.route,
-			    timestamp: moment.tz(Date.now(), "America/Mexico_City").format()
+			    timestamp: Date.now()
 			});
 			location.save(function (err, newBus) {
 				  if (err) return console.error(err);
