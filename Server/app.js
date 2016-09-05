@@ -3,27 +3,6 @@ var app = express();//Initialize instance of express
 var mongoose = require('mongoose');
 var fs = require('fs');
 var geolib = require('geolib');
-var exec = require('child_process').exec;
-
-function loopTimeout(){
-	var t = setTimeout( function()
-	 {
-	     killDHCP();
-	     console.log("dhclient...");
-	     exec("dhclient wlp3s0");
-	     loopTimeout();
-	 }, 300000);
-}
-
-function killDHCP(){
-        var t = setTimeout( function()
-         {
-             console.log("kill dhclient...");
-             exec("pkill dhclient");
-         }, 5000);
-}
-
-loopTimeout();
 
 //Probes
 console.log(geolib.isPointInCircle(
@@ -32,7 +11,7 @@ console.log(geolib.isPointInCircle(
 		50));
 
 //
-mongoose.connect('mongodb://127.0.0.1/supermercado');//Connect to the mongodb "server:database"
+mongoose.connect('mongodb://127.0.0.1/smartudlap');//Connect to the mongodb "server:database"
 var db = mongoose.connection;//Reference to the mongodb connection
 
 db.on('error', console.error.bind(console, 'connection error:'));
